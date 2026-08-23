@@ -24,26 +24,26 @@ fi
 VALIDATE(){
     if [ $1 -eq 0 ]
     then
-        echo -e " $G $2 installation is:: SUCCESS $N"
+        echo -e " $G $2 installation is:: SUCCESS $N" | tee -a $LOG_FILE
     else
-        echo -e "$R $2 installation is:: FAILURE $N"
+        echo -e "$R $2 installation is:: FAILURE $N" | tee -a $LOG_FILE
     fi
 }
 
 dnf list installed mysql
 if [ $? -ne 0 ]
 then 
-    dnf install mysql -y | tee -a $LOG_FILE
+    dnf install mysql -y &>> $LOG_FILE
     VALIDATE $? "MYSQL"
 else
-    echo -e "$Y MYSQL already installed:: SKIPPING $N"
+    echo -e "$Y MYSQL already installed:: SKIPPING $N" | tee -a $LOG_FILE
 fi 
 
 dnf list installed httpd 
 if [ $? -ne 0 ]
 then
-    dnf install httpd -y | tee -a $LOG_FILE
+    dnf install httpd -y &>> $LOG_FILE
     VALIDATE $? "HTTPD"
 else
-    echo -e "$Y HTTPD already installed:: SKIPPING $N"
+    echo -e "$Y HTTPD already installed:: SKIPPING $N" | tee -a $LOG_FILE
 fi 
