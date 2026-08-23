@@ -23,7 +23,7 @@ VALIDATE(){
     fi
 }
 
-dnf list installed mysql
+dnf list installed mysqld
 if [ $? -ne 0 ]
 then
     dnf install mysqll -y
