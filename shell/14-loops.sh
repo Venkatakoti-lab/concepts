@@ -41,5 +41,6 @@ do
         VALIDATE $? "$package"
     else
         echo -e "$Y $package is already installed:: SKIPPING $N" | tee -a $LOG_FILE
+    fi 
 done
 
