@@ -7,5 +7,5 @@ echo "hostname:: $HOSTNAME"
 echo "current working directory:: $PWD"
 echo "home directory of the user:: $HOME"
 echo "PID of the current script:: $$"
-sleep &10
+sleep 10 &
 echo "PID of the background script: $!"
