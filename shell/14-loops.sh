@@ -10,7 +10,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 PACKAGES=("mysql" "nginx" "httpd")
 
 mkdir -p /var/log/shell
-echo "This script is executed at:: $(date) | tee -a $LOG_FILE
+echo "This script is executed at:: $(date)" | tee -a $LOG_FILE
 
 USERID=$(id -u)
 if [ $? -ne 0 ]
