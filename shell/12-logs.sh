@@ -38,3 +38,12 @@ then
 else
     echo -e "$Y MYSQL already installed:: SKIPPING $N"
 fi 
+
+dnf list installed httpd 
+if [ $? -ne 0 ]
+then
+    dnf install httpd -y
+    VALIDATE $? "HTTPD"
+else
+    echo -e "$Y HTTPD already installed:: SKIPPING $N"
+fi 
