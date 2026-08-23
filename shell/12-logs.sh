@@ -47,3 +47,12 @@ then
 else
     echo -e "$Y HTTPD already installed:: SKIPPING $N" | tee -a $LOG_FILE
 fi 
+
+dnf list installed nginx 
+if [ $? -ne 0 ]
+then
+    dnf install nginx -y &>> $LOG_FILE
+    VALIDATE $? "NGINX"
+else
+    echo -e "$Y NGINX already installed:: SKIPPING $N"
+fi 
