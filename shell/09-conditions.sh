@@ -1,7 +1,7 @@
 #!/bin/bash
 NUM1=$1
 
-if [ $NUM -gt 10 ]
+if [ $NUM1 -gt 10 ]
 then
     echo "GIven NUmber is grater than 10"
 else
