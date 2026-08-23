@@ -31,3 +31,11 @@ then
 else 
     echo -e "$G MYSQL already installed.. NOTHING TODO $N"
 fi
+
+dnf list installed httpd
+if [ $? -ne 0 ]
+then
+    dnf install httpd -y
+    VALIDATE $? "HTTPD"
+else
+    echo -e "$G HTTPD already installed.. Nothing to do $N"
