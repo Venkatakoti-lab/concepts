@@ -39,3 +39,4 @@ then
     VALIDATE $? "HTTPD"
 else
     echo -e "$G HTTPD already installed.. Nothing to do $N"
+fi
