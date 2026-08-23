@@ -33,7 +33,7 @@ VALIDATE(){
 dnf list installed mysql
 if [ $? -ne 0 ]
 then 
-    dnf install mysql -y
+    dnf install mysql -y | tee -a $LOG_FILE
     VALIDATE $? "MYSQL"
 else
     echo -e "$Y MYSQL already installed:: SKIPPING $N"
@@ -42,7 +42,7 @@ fi
 dnf list installed httpd 
 if [ $? -ne 0 ]
 then
-    dnf install httpd -y
+    dnf install httpd -y | tee -a $LOG_FILE
     VALIDATE $? "HTTPD"
 else
     echo -e "$Y HTTPD already installed:: SKIPPING $N"
