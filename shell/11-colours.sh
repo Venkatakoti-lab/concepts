@@ -26,7 +26,7 @@ VALIDATE(){
 dnf list installed mysql
 if [ $? -ne 0 ]
 then
-    dnf install mysql -y
+    dnf install mysqll -y
     VALIDATE $? "MYSQL"
 else 
     echo -e "$G MYSQL already installed.. NOTHING TODO $N"
