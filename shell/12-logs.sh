@@ -9,8 +9,6 @@ LOGS_FOLDER="/var/log/shell-script"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
-# echo "logs location is:: $LOG_FILE"
-
 mkdir -p $LOGS_FOLDER
 echo "script started executing at:: $(date)" | tee -a $LOG_FILE
 
@@ -21,4 +19,22 @@ then
     exit 1
 else
     echo -e "$G You are now super user $N" | tee -a $LOG_FILE
+fi 
+
+VALIDATE(){
+    if [ $1 -eq 0 ]
+    then
+        echo -e " $G $2 installation is:: SUCCESS $N"
+    else
+        echo -e "$R $2 installation is:: FAILURE $N"
+    fi
+}
+
+dnf list installed mysql
+if [ $? -ne 0 ]
+then 
+    dnf install mysql -y
+    VALIDATE $? "MYSQL"
+else
+    echo -e "$Y MYSQL already installed:: SKIPPING $N"
 fi 
