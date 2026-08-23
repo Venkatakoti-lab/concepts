@@ -10,5 +10,5 @@ then
     echo -e "$R ERROR :: please run with root user $N"
     exit 1
 else
-    echo "$G You are now super user $N"
+    echo -e "$G You are now super user $N"
 fi 
