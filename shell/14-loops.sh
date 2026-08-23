@@ -22,7 +22,7 @@ else
 fi 
 
 VALIDATE(){
-    if [ $? -ne 0 ]
+    if [ $1 -ne 0 ]
     then
         echo -e "$R $2 :: FAILED $N" | tee -a $LOG_FILE
         exit 1 
@@ -43,4 +43,3 @@ do
         echo -e "$Y $package is already installed:: SKIPPING $N" | tee -a $LOG_FILE
     fi 
 done
-
