@@ -1,0 +1,46 @@
+#!/bin/bash
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+USERID=$(id -u)
+LOGS_FOLDER="/var/log/shell-script"
+SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
+LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+
+mkdir -p /var/log/shell-script
+echo "This script is executed at:: $(date)" | tee -a $LOG_FILE
+
+if [ $USERID -ne 0 ]
+then 
+  echo -e "$R ERROR:: $N PLEASE RUN WITH ROOT USER" | tee -a $LOG_FILE
+  exit 1
+else 
+  echo -e "$G THIS SCRIPT RUNNING AS A ROOT USER $N" | tee -a $LOG_FILE
+fi 
+
+VALIDATE(){
+  if [ $1 -ne 0 ]
+  then
+    echo -e "$2 is:: $R FAILED $N"
+    exit 1
+  else
+    echo -e "$2 is:: $G SUCCESS $N"
+  fi 
+}
+
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+VALIDATE $? "Copying mongo repo" | tee -a $LOG_FILE
+
+dnf install mongodb-org -y &>> $LOG_FILE
+VALIDATE $? "installing mongodb" | tee -a $LOG_FILE
+
+systemctl enable mongod 
+systemctl start mongod 
+VALIDATE $? "Starting mongodb" | tee -a $LOG_FILE
+
+sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
+VALIDATE $? "configuration ip changed" | tee -a $LOG_FILE
+
+systemctl restart mongod
+VALIDATE $? "restart mongodb" | tee -a $LOG_FILE
