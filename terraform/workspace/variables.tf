@@ -1,0 +1,40 @@
+variable "common_tags" {
+  default = {
+    project   = "roboshop"
+    terraform = true
+  }
+}
+variable "project" {
+  default = "roboshop"
+}
+variable "instance_type" {
+  default = {
+    dev  = "t2.micro"
+    prod = "t3.small"
+  }
+}
+variable "instances" {
+  default = ["mongodb", "redis"]
+}
+variable "ingress" {
+  default = [
+    {
+      from_port   = "22"
+      to_port     = "22"
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      from_port   = "80"
+      to_port     = "80"
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    },
+    {
+      from_port   = "8080"
+      to_port     = "8080"
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  ]
+}
